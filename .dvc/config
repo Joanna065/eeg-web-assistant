@@ -1,0 +1,4 @@
+[core]
+    remote = web-eeg-gdrive
+['remote "web-eeg-gdrive"']
+    url = gdrive://1fIgy70gbXST81x7Nf9QWnxghf2v5jWJn

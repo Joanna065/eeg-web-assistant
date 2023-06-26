@@ -1,0 +1,47 @@
+version: 1
+
+formatters:
+  console:
+    format: "[%(asctime)s]\t%(threadName)10s\t%(name)-35s\t%(levelname)10s\t%(message)s"
+  file:
+    format: "[%(asctime)s]\t%(threadName)10s\t%(pathname)s:%(lineno)d\t%(levelname)s\t%(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: console
+
+  file:
+    class: logging.handlers.TimedRotatingFileHandler
+    formatter: file
+    level: DEBUG
+    filename: .storage/logs/app.log
+    when: D
+    interval: 1
+    backupCount: 30
+
+loggers:
+  eeg_web_assistant:
+    level: DEBUG
+    handlers:
+      - console
+      - file
+
+  celery:
+    level: INFO
+    handlers:
+      - console
+      - file
+    propagate: False
+
+  uvicorn:
+    level: INFO
+    handlers:
+      - console
+      - file
+    propagate: False
+
+  mne:
+    level: WARNING
+    propagate: False

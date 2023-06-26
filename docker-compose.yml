@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  database:
+    image: mongo
+    container_name: eeg_web_assistant_database
+    volumes:
+      - eeg_web_assistant_database_volume:/data/db
+
+  broker:
+    image: rabbitmq:3-alpine
+    container_name: eeg_web_assistant_broker
+
+  worker:
+    depends_on:
+      - broker
+    image: eeg_web_assistant_backend:latest
+    build: backend/
+    container_name: eeg_web_assistant_worker
+    environment:
+      - EEG_WEB_ASSISTANT_ENVIRONMENT=production
+    command: ["celery", "--app", "eeg_web_assistant.runners.worker:app", "worker", "--loglevel=info", "--uid=nobody", "--gid=nogroup"]
+
+  backend:
+    depends_on:
+      - worker
+      - database
+    image: eeg_web_assistant_backend:latest
+    build: backend/
+    container_name: eeg_web_assistant_backend
+    environment:
+      - EEG_WEB_ASSISTANT_ENVIRONMENT=production
+    command: ["uvicorn", "eeg_web_assistant.runners.api:app", "--host", "0.0.0.0", "--port", "5000"]
+
+  frontend:
+    depends_on:
+      - backend
+    image: eeg_web_assistant_frontend:latest
+    build: frontend/
+    container_name: eeg_web_assistant_frontend
+    ports:
+      - 80:80
+      - 443:443
+
+volumes:
+  eeg_web_assistant_database_volume:

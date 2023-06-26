@@ -1,0 +1,9 @@
+{
+  "lr": 0.001,
+  "hidden_units": 256,
+  "filters": 32,
+  "kernel": 3,
+  "dropout": 0.15,
+  "reduction_ratio": 16,
+  "spatial_kernel": 7
+}

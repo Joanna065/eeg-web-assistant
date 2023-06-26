@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  database:
+    image: mongo
+    container_name: eeg_web_assistant_database
+    ports:
+      - 27017:27017
+    volumes:
+      - eeg_web_assistant_database_volume:/data/db
+
+  broker:
+    image: rabbitmq:3-alpine
+    container_name: eeg_web_assistant_broker
+    ports:
+      - 5672:5672
+
+  flower:
+    image: gregsi/latest-celery-flower-docker:latest
+    environment:
+      - FLOWER_BASIC_AUTH=user:test
+    ports:
+      - 5555:5555
+    depends_on:
+      - broker
+
+
+volumes:
+  eeg_web_assistant_database_volume:

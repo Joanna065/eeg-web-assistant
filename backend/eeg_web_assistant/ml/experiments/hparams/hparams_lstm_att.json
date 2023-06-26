@@ -1,0 +1,8 @@
+{
+  "hidden_units": 128,
+  "dropout_0": 0.1,
+  "dropout_1": 0.2,
+  "dropout_2": 0.2,
+  "l2": 0.001,
+  "lr": 0.0001
+}

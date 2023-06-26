@@ -1,0 +1,12 @@
+{
+  "exclude": [
+    "BURSTS",
+    "ECG EKG-REF",
+    "EMG-REF",
+    "IBI",
+    "PHOTIC-REF",
+    "PULSE RATE",
+    "RESP ABDOMEN-RE",
+    "SUPPR"
+  ]
+}

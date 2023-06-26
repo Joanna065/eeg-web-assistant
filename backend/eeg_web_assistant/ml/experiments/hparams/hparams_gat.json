@@ -1,0 +1,6 @@
+{
+  "lr": 0.0005,
+  "hidden_units": 64,
+  "output_shape": 64,
+  "dropout": 0.2
+}
